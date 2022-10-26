@@ -9,6 +9,10 @@ const getClients = async (req, res) => {
     if(param != undefined){
         endpoint = url+'?id='+param;
     }
+    else{
+        endpoint = url+'?id=*';
+    }
+    console.log(endpoint);
     https.get(endpoint, response => {
         response.on('data', (r) => {
             res.json(JSON.parse(r));
