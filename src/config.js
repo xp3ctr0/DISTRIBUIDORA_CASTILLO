@@ -5,4 +5,5 @@ config();
 export default {
     host: process.env.HOST || "",
     client: process.env.CLIENT || "",
+    user: process.env.USER || "",
 };

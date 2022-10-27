@@ -3,8 +3,8 @@ import {logPlugin} from "@babel/preset-env/lib/debug";
 
 const https = require('node:https');
 
-const getClients = async (req, res) => {
-    const url = config.client;
+const getUsers = async (req, res) => {
+    const url = config.user;
     const param = req.params.id;
     let endpoint = url + '?id=*';
     if (param != undefined) {
@@ -17,14 +17,17 @@ const getClients = async (req, res) => {
     })
 }
 
-const insertClients = async (req, res) => {
-    const url = config.client;
+const insertUser = async (req, res) => {
+    const url = config.user;
     const options = {
         method: 'POST',
         body: JSON.stringify(req.body)
     };
+    console.log(url);
+    console.warn(req.body);
     const postResponse = https.request(url, options, response => {
         return response.on('data', (d) => {
+            console.log(JSON.parse(d))
             res.json(JSON.parse(d));
         });
     });
@@ -32,8 +35,8 @@ const insertClients = async (req, res) => {
     postResponse.end();
 }
 
-const updateClients = async (req, res) => {
-    const url = config.client;
+const updateUser = async (req, res) => {
+    const url = config.user;
     const options = {
         method: 'PUT',
         body: JSON.stringify(req.body)
@@ -47,4 +50,4 @@ const updateClients = async (req, res) => {
     putResponse.end();
 }
 
-export const methods = {getClients, insertClients, updateClients};
+export const methods = {getUsers, insertUser, updateUser};
